@@ -4,12 +4,12 @@ local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "MobileButton"
 screenGui.Parent = game.StarterGui
 
--- Create a mobile button (gray and transparent)
+-- Create a mobile button (blue)
 local mobileButton = Instance.new("TextButton")
 mobileButton.Name = "Tsbr11💀"
 mobileButton.Text = "Tsbr11💀"
-mobileButton.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
-mobileButton.BackgroundTransparency = 0.5
+mobileButton.BackgroundColor3 = Color3.new(0, 0, 1) -- Azul
+mobileButton.BackgroundTransparency = 0 -- Não transparente
 mobileButton.Size = UDim2.new(0, 50, 0, 50)
 mobileButton.Position = UDim2.new(0, 10, 0, 10)
 mobileButton.Parent = screenGui
@@ -64,23 +64,27 @@ local function executeScript(style)
 end
 
 local function noCdScript()
+    print("noCdScript chamado!")
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
     local Controllers = ReplicatedStorage:FindFirstChild("Controllers")
     if Controllers then
+        print("Controllers encontrado!")
         local AbilityController = Controllers:FindFirstChild("AbilityController") and require(Controllers.AbilityController)
         if AbilityController and AbilityController.AbilityCooldown then
+            print("AbilityController e AbilityCooldown encontrados!")
             -- Store original function
             local originalCooldown = AbilityController.AbilityCooldown
             -- Override cooldown function to set cooldown to 0
             AbilityController.AbilityCooldown = function(self, abilityName, time, ...)
+                print("Cooldown substituído!")
                 return originalCooldown(self, abilityName, 0, ...) -- Force cooldown to 0
             end
             print("[SUCCESS] Ability cooldown set to 0 (instant spam)!")
         else
-            print("[WARNING] AbilityController or AbilityCooldown not found!")
+            print("[WARNING] AbilityController ou AbilityCooldown não encontrado!")
         end
     else
-        print("[WARNING] Controllers folder not found in ReplicatedStorage!")
+        print("[WARNING] Controllers folder não encontrado em ReplicatedStorage!")
     end
 end
 
@@ -89,10 +93,4 @@ mobileButton.MouseButton1Click:Connect(displayMenu)
 kaiserButton.MouseButton1Click:Connect(function()
     executeScript("Kaiser")
 end)
-nelIsagiButton.MouseButton1Click:Connect(function()
-    executeScript("NEL Isagi")
-end)
-reoButton.MouseButton1Click:Connect(function()
-    executeScript("Reo")
-end)
-noCdButton.MouseButton1Click:Connect(noCdScript)
+nelIsagi
